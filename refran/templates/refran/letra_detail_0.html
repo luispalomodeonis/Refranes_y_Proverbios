@@ -1,0 +1,51 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h3>Letra:<span class="letra"> {{ letra.letra }} </span></h3>
+   </div>
+   <div id="contenido">
+   <section>
+      <article>
+         {% if letra.palabra_set.all %}
+            <h4>Palabras:</h4>
+            <table border="0" width="100%">
+            {% for palabra in letra.palabra_set.all %}
+               <tr>
+               <td align="center" width="20%">
+               <a class="palabra" href="{{ palabra.get_absolute_url }}">{{ palabra.palabra }}</a>
+               {% if palabra.refran_set.all %}
+                  (<strong>{{ palabra.refran_set.count }}</strong> {% if palabra.refran_set.count == 1 %} refrán{% else %}refranes{% endif %})
+               {% else %}
+                 (sin refranes)
+               {% endif %}
+               </td>
+               <td align="left" width="80%">
+               <strong> {{ palabra.significado }}</strong>
+               </td>
+               </tr>
+            {% endfor %}
+            <tr><td colspan="2">-._.-._.-</td></tr>
+            </table>
+         {% else %}
+            <p>Letra sin palabras</p>
+         {% endif %}
+      </article>
+   </section>
+   </div>
+</div>
+{% endblock %}
+
+{% block edita %}
+   {% if perms.refranes.delete_letra %}
+      <div class="dropdown">
+      <button class="dropbtn">Edición</button>
+      <div class="dropdown-content">
+         <a href="{% url 'letra-borra' letra.id%}">Borrar</a>
+      </div>
+      </div>
+   {% endif %}
+{% endblock %}
+

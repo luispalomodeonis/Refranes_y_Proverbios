@@ -1,0 +1,53 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h3>Palabra: <span class="palabra"> {{ palabra.palabra }} </span></h3>
+   </div>
+   <div id="contenido">
+   Significado: <h4>{{ palabra.significado }}</h4>
+   Origen: <h4><a class="origen" href="{% url 'origen-detalle' palabra.origen.pk %}">{{ palabra.origen }}</a></h4>
+   <section>
+      <article>
+      {% if palabra.refran_set.all %}
+         <h4>Refranes:</h4>
+         <table border="0" width="100%">
+         {% for refran in palabra.refran_set.all %}
+            <tr><td>
+              <a class="refran" href="{{ refran.get_absolute_url }}">"{{ refran.dicho }}"</a>
+            </td></tr>
+            <tr><td>
+             {{ refran.explicacion }}
+            </td></tr>
+         {% endfor %}
+            <tr><td>-._.-._.-</td></tr>
+         </table>
+      {% else %}
+        <p>Palabra sin refranes</p> 
+      {% endif %}
+      </article>
+   </section>
+   </div>
+</div>
+{% endblock %}
+
+{% block edita %}
+   {% if perms.refranes.change_palabra or perms.refranes.delete_palabra %}
+      <div class="dropdown">
+      <button class="dropbtn">Edición</button>
+      <div class="dropdown-content">
+         {% if perms.refranes.change_palabra %}
+            <a href="{% url 'palabra-actualiza' palabra.id %}">Cambiar</a>
+         {% endif %}
+         {% if not palabra.refran_set.all and perms.refranes.delete_palabra %}
+         {% endif %}
+         {% if perms.refranes.delete_palabra %}
+            <a href="{% url 'palabra-borra' palabra.id %}">Borrar</a>
+         {% endif %}
+      </div>
+      </div>
+   {% endif %}
+{% endblock %}
+

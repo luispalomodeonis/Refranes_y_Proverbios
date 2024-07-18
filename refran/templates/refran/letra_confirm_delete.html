@@ -1,0 +1,31 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+<div class="col-sm-12">
+   <div class="titulo_pag">
+<h3>Borrar letra:</h3>
+   </div>
+   <div id="contenido">
+   <section>
+      <article>
+<h1>{{ letra.letra }}</h1>
+{% if letra.palabra_set.all %}
+   <p>No puede borrar la letra mientras no borre sus palabras. </p>
+  <ul>
+      {% for palabra in letra.palabra_set.all %}
+         <li><a class="palabra" href="{% url 'palabra-detalle' palabra.pk %}">"{{ palabra.palabra }}"</a></li>
+      {% endfor %}
+   </ul>
+{% else %}
+   <p>¿Está seguro de querer borrar esta letra?</p>
+   <form action="" method="post">
+      {% csrf_token %}
+      <input type="submit" action="" value="si, borra">
+   </form>
+{% endif %}
+      </article>
+   </section>
+   </div>
+</div>
+{% endblock %}
+

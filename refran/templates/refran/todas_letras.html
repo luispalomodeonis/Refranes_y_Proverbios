@@ -1,0 +1,41 @@
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+      <div class="col-sm-12">
+         <div class="titulo_pag">
+            <h2>Lista de todas las letras</h2>
+         </div>
+         <div id="contenido">
+            <section>
+               <article>
+                  {% if letra_list %}
+                     <table border="0" width="100%">
+                        <tr>
+                           {% for letra in letra_list %}
+                              <td align="center">
+                                 <ul type="circle">
+                                    <li>
+                                       <a class="letra" href="{{ letra.get_absolute_url }}">{{ letra.letra }}</a>
+                                       (<strong>{{ letra.palabra_set.count }}</strong> {% if letra.palabra_set.count == 1 %} palabra{% else %} palabras{% endif %})
+                                       (<strong>{{ letra.refran_set.count }}</strong> {% if letra.refran_set.count == 1 %} refrán{% else %} refranes{% endif %})
+                                    </li>
+                                 </ul>
+                              </td>
+                              {% if forloop.counter|divisibleby:"3" %}
+                        </tr><tr>
+                              {% endif %}
+                           {% endfor %}
+                        </tr>
+                     </table>
+                  {% else %}
+                      <p>No hay letras en el archivo.</p>
+                  {% endif %}
+               </article>
+            </section>
+         </div>
+      </div>
+{% endblock %}
+
+

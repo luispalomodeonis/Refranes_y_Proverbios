@@ -1,0 +1,22 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+<div class="col-sm-12">
+   <div class="titulo_pag">
+<h3>Borrar refrán:</h3>
+   </div>
+   <div id="contenido">
+   <section>
+      <article>
+<h1>"{{ refran.dicho }}"</h1>
+   <p>¿Está seguro de querer borrar este refrán?</p>
+   <form action="" method="post">
+      {% csrf_token %}
+      <input type="submit" action="" value="si, borra">
+   </form>
+      </article>
+   </section>
+   </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,41 @@
+
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+      <div class="col-sm-12">
+         <div class="titulo_pag">
+            <h2>Lista de todos los orígenes</h2>
+         </div>
+         <div id="contenido">
+            <section>
+               <article>
+                  {% if origen_list %}
+                     <table border="0" width="100%">
+                        <tr><td>
+                           <ul type="square">
+                              {% for origen in origen_list %}
+                                 <li>
+                                    <a class="origen" href="{{ origen.get_absolute_url }}">{{ origen.nombre }}</a>
+                                    (<span  class="{% if origen.no_aprobado %}text-danger{% endif %}">{{ origen.get_estado_display }}</span>)
+                                 </li>
+                                 <li>
+                                    <strong>{{ origen.palabra_set.count }}</strong> {% if origen.palabra_set.count == 1 %} palabra {% else %} palabras {% endif %}
+                                 </li>
+                                 <li>
+                                    <strong>{{ origen.refran_set.count }}</strong> {% if origen.refran_set.count == 1 %} refrán {% else %} refranes {% endif %}
+                                 </li>
+                              {% endfor %}
+                           </ul>
+                        </td></tr>
+                     </table>
+                  {% else %}
+                     <p>No hay orígenes en el archivo.</p>
+                  {% endif %}
+               </article>
+            </section>
+         </div>
+      </div>
+{% endblock %}
+

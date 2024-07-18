@@ -1,0 +1,44 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h3>Origen: <span class="origen"> {{ origen.nombre }} </span></h3>
+   </div>
+   <div id="contenido">
+   <section>
+      <article>
+      {% if object_list %}
+        <h4>Palabras o Refranes</h4>
+        <table border="0" width="100%">
+        {% for objeto in object_list %}
+        {% if objeto.tipo == 0 %}
+           <tr><td width="20%" align="center">
+           <strong>Palabra</strong>: <a class="palabra" href="/refran/palabras/{{ objeto.id }}">{{ objeto.palabra }}</a>
+           </td>
+           <td width="80%" align="left">
+           {{ objeto.significado }}
+           </td></tr>
+        {% else %}
+           <tr><td width="100%" colspan="2" align="center">
+           <strong>Refrán</strong>: <a class="refran" href="/refran/refranes/{{ objeto.id }}">"{{ objeto.palabra }}"</a>
+           </td>
+           </tr>
+           <tr>
+           <td width="100%" colspan="2" align="center">
+           <strong>Explicación</strong>: {{ objeto.significado }}
+           </td></tr>
+        {% endif %}
+        {% endfor %}
+        <tr><td colspan="3">-._.-._.-</td></tr>
+        </table>
+      {% else %}
+        <p>Origen sin palabras o refranes</p>
+      {% endif %}
+      </article>
+   </section>
+   </div>
+</div>
+{% endblock %}
+

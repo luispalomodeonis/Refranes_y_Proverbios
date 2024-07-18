@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   {% block title %}<title>Refranes & Proverbios</title>{% endblock %}
+   <!--meta charset="iso-8859-15"-->
+   <meta charset="ES-es">
+   <meta name="author" content="Luis Palomo de Onis Gutierrez">
+   <meta name="description" content="Web de Refranes y Proverbios del Castellano">
+   <meta name="keywords" content="Refranes, Proverbios, Castellano">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext">
+   {% load static %}
+   <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+   <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body>
+<script>
+function hazAdaptable(){
+   var x=document.getElementById("miTopnav");
+   if (x.className === "topnav"){
+      x.className +=" responsive";
+   } else {
+      x.className ="topnav";
+   }
+}
+</script>
+<header>
+   <div class="page-header">
+      Refranes y Proverbios
+   </div>
+</header>
+<nav>
+   <div class="topnav" id="miTopnav">
+      <a href="{% url 'index' %}" class="active">Inicio</a>
+      <a href="{% url 'letras' %}">Letras</a>
+      {% if user.is_authenticated %}
+         <a href="{% url 'origenes' %}">Orígenes</a>
+      {% endif %}
+      <a href="{% url 'palabras' %}">Palabras</a>
+      <a href="{% url 'refranes' %}">Refranes</a>
+      {# {% if user.is_authenticated %} #}
+      {# <a href="{% url 'refranes-enrevision' %}">Ref. Revisión</a> #}
+      {# <a href="{% url 'refranes-aprobados' %}">Ref. Aprobados</a> #}
+      {# <a href="{% url 'refranes-publicados' %}">Ref. Publicados</a> #}
+      {# {% endif %} #}
+      <a class="buscar" href="{% url 'buscar' %}">Buscar</a>
+      <a href="javascript:void(0);" class="icon" onclick="hazAdaptable()">
+         <i class="fa fa-bars"></i>
+      </a>
+   </div>
+</nav>
+<nav>
+   {% if user.is_authenticated %}
+      <div class="dropdown">
+         <button class="dropbtn">de Usuario</button>
+         <div class="dropdown-content">
+            <a href="{% url 'mis-palabras' %}">Palabras</a>
+            <a href="{% url 'mis-refranes' %}">Refranes</a>
+            <a href="{% url 'mis-refranes-enrevision' %}">Revisión</a>
+            <a href="{% url 'mis-refranes-aprobados' %}">Aprobados</a>
+            <a href="{% url 'mis-refranes-publicados' %}">Publicados</a>
+            <a href="{% url 'logout' %}"><strong>Salir</strong></a>
+         </div>
+      </div>
+   {% else %}
+      <div class="dropdown">
+         <button class="dropbtn">Visita</button>
+         <div class="dropdown-content">
+            <a href="{% url 'login' %}?next={{ request.path }}">Entrar</a>
+         </div>
+      </div>
+      <div class="dropdown">
+         <button class="dropbtn">Compartir</button>
+         {% load social_share %}
+         <div class="dropdown-content">
+            {% post_to_facebook object.get_absolute_url "FaceBook" %}
+         </div>
+         <div class="dropdown-content">
+            {% post_to_whatsapp object.get_absolute_url "WhatsApp" %}
+         </div>
+         <div class="dropdown-content">
+            {% send_email object.title "Refranes & Proverbios" object.get_absolute_url "Vía Email" %}
+         </div>
+      </div>
+      <div class="dropdown">
+         <button class="dropbtn">Detalles</button>
+         <div class="dropdown-content">
+            <a href="{% url 'contacto' %}">Contacto</a>
+         </div>
+         <div class="dropdown-content">
+            <a href="{% url 'notas' %}">Notas</a>
+         </div>
+      </div>
+   {% endif %}
+   {% if user.is_staff %}
+      <div class="dropdown">
+         <button class="dropbtn">Administración</button>
+         <div class="dropdown-content">
+            <a href="{% url 'todas-letras' %}">Letras</a>
+            <a href="{% url 'todos-origenes' %}">Orígenes</a>
+            <a href="{% url 'todas-palabras' %}">Palabras</a>
+            <a href="{% url 'todos-refranes' %}">Refranes</a>
+         </div>
+      </div>
+   {% endif %}
+   {% if perms.refranes.add_letra or perms.refranes.add_palabra or perms.refranes.add_refran %}
+      <div class="dropdown">
+         <button class="dropbtn">Creación</button>
+         <div class="dropdown-content">
+            {% if perms.refranes.add_letra %}
+               <a href="{% url 'letra-crea' %}">Letra</a>
+            {% endif %}
+            {% if perms.refranes.add_palabra %}
+               {# <a href="{% url 'palabra-crea' %}">Palabra</a> #}
+               <a href="{% url 'palabra-nueva' %}">Palabra</a>
+            {% endif %}
+            {% if perms.refranes.add_refran %}
+               {# <a href="{% url 'refran-crea' %}">Refrán</a> #}
+               <a href="{% url 'refran-nuevo' %}">Refrán</a>
+            {% endif %}
+         </div>
+      </div>
+   {% endif %}
+   
+   {% block edita %}
+   {% endblock %}
+
+</nav>
+<div id="pagina" class='container-fluid'>
+   <div class="row">
+
+      {% block content %}
+      {% endblock %}
+
+      {% block pagination %}
+         {% if is_paginated %}
+            <div id="pagination" class="pagination">
+               <span class="page-links">
+               {% if page_obj.has_previous %}
+                  <a href="{{ request.path }}?page=1"> Primera </a>
+                  {% if page_obj.previous_page_number != 1 %}
+                     <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}"> << anterior << </a>
+                  {% endif %}
+               {% endif %}
+               <span class="page-current">
+                  Pagina {{ page_obj.number }} de {{page_obj.paginator.num_pages }}
+               </span>
+               {% if page_obj.has_next %}
+                  {% if page_obj.next_page_number != page_obj.paginator.num_pages %}
+                     <a href="{{ request.path }}?page={{ page_obj.next_page_number }}"> >> siguiente >></a>
+                  {% endif %}
+                  <a href="{{ request.path }}?page={{ page_obj.paginator.num_pages }}"> Última</a>
+               {% endif %}
+               </span>
+            </div>
+         {% endif %}
+      {% endblock %}
+
+      {% block content_end %}
+      {% endblock %}
+
+      {% block filtros %}
+      {% endblock %}
+
+   </div>
+</div>
+<!--
+<div class="pie">
+            <section>
+               <article id="funciones">
+                  <div with="100%">
+                  <span align="left">Contacto</span>
+                  <span align="center">Enlaces</span>
+                  <span align="right">Envios</span>
+                  </div>
+               </article>
+            </section>
+
+            <section>
+               <article id="pie">
+                  <strong>4&ByM3R</strong>
+               </article>
+            </section>
+
+</div>
+-->
+</body>
+</html>
+

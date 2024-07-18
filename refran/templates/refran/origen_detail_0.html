@@ -1,0 +1,49 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h3>Origen: <span class="origen"> {{ origen.nombre }} </span></h3>
+   </div>
+   <div id="contenido">
+   <section>
+      <article>
+      {% if origen.palabra_set.all %}
+        <h4>Palabras:</h4>
+        <table border="0" width="100%">
+        {% for palabra in origen.palabra_set.all %}
+           <tr><td width="30%" align="right" style="padding: 0 10px 0 0">
+           <a class="palabra" href="{{ palabra.get_absolute_url }}">{{ palabra.palabra }}</a></p>
+           </td>
+           <td width="50%" align="left">
+           {{ palabra.significado }}
+           </td>
+           <td width="20%" align="left" style="padding: 5px 0 0 0;">
+           {% if palabra.refran_set.all %}
+              {{ palabra.refran_set.count }} {% if palabra.refran_set.count == 1 %} refrán {% else %}refranes{% endif %}
+<!--
+              <h4>Refranes</h4>
+              <ul>
+              {% for refran in palabra.refran_set.all %}<hr>
+                 <p><strong>Refrán:</strong> <a href="{{ refran.get_absolute_url }}">{{ "refran.dicho" }}</a></p>
+                 <p class="text-muted"> {{ refran.explicacion }}</p>
+              {% endfor %}
+           </ul>
+-->
+           {% else %}
+              <p>Palabra sin refranes</p>
+           {% endif %}
+           </td></tr>
+        {% endfor %}
+        <tr><td colspan="3">-._.-._.-</td></tr>
+        </table>
+      {% else %}
+        <p>Origen sin palabras</p>
+      {% endif %}
+      </article>
+   </section>
+   </div>
+</div>
+{% endblock %}
+

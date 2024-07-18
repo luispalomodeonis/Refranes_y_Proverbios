@@ -1,0 +1,127 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+
+{% load misfiltros %}
+
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h2>Lista de resultados</h2>
+   </div>
+   <div id="contenido">
+   {% if resultado_palabra and mibusqueda_palabra != 'None' %}
+   <section>
+      <article>
+      <div class="titulo_pag">
+         <h3>Resultado de palabras con: "{{ mibusqueda_palabra }}"</h3>
+      </div>
+      <table border="0" width="100%">
+         {% for palabra in resultado_palabra %}
+         <tr>
+         <td align="center">
+            {% with cadena=mibusqueda_palabra %}
+            <a class="palabra" href="{{ palabra.get_absolute_url }}">{{ palabra.palabra|resalta:cadena }}</a>
+            {% endwith %}
+         </td></tr>
+         {% endfor %}
+         <tr><td>-._.-._.-</td></tr>
+      </table>
+      </article>
+   </section>
+   {% else %}
+      {% if mibusqueda_palabra != 'None' and not resultado_significado and not resultado_dicho and not resultado_explicacion  %}
+         <div align="center">
+            <h3>No hay resultado en palabras con: "{{ mibusqueda_palabra }}"</h3>
+         </div>
+      {% endif %}
+   {% endif %}
+   {% if resultado_significado and mibusqueda_significado != 'None' %}
+   <section>
+      <article>
+      <div class="titulo_pag">
+         <h3>Resultado de significados con: "{{ mibusqueda_significado }}"</h3>
+      </div>
+      <table border="0" width="100%">
+         {% for significado in resultado_significado %}
+         <tr>
+         <td align="left">
+            <a class="palabra" href="{{ significado.get_absolute_url }}">{{ significado.palabra }}</a>
+         </td>
+         <td align="center" width="80%">
+            {% with cadena=mibusqueda_significado %}
+            {{ significado.significado|resalta:cadena }}
+            {% endwith %}
+         </td></tr>
+         {% endfor %}
+         <tr><td colspan="2">-._.-._.-</td></tr>
+      </table>
+      </article>
+   </section>
+   {% else %}
+      {% if mibusqueda_significado != 'None' and not resultado_palabra and not resultado_dicho and not resultado_explicacion %}
+         <div align="center">
+            <h3>No hay resultado en significados con: "{{ mibusqueda_significado }}"</h3>
+         </div>
+      {% endif %}
+   {% endif %}
+   {% if resultado_dicho and mibusqueda_dicho != 'None' %}
+   <section>
+      <article>
+      <div class="titulo_pag">
+         <h3>Resultado de refranes con: "{{ mibusqueda_dicho }}"</h3>
+      </div>
+      <table border="0" width="100%">
+         {% for dicho in resultado_dicho %}
+         <tr>
+         <td align="center">
+            {% with cadena=mibusqueda_dicho %}
+            <a class="refran" href="{{ dicho.get_absolute_url }}">"{{ dicho.dicho|resalta:cadena }}"</a>
+            {% endwith %}
+         </td></tr>
+         {% endfor %}
+         <tr><td>-._.-._.-</td></tr>
+      </table>
+      </article>
+   </section>
+   {% else %}
+      {% if mibusqueda_dicho != 'None' and not resultado_palabra and not resultado_significado and not resultado_explicacion %}
+         <div align="center">
+            <h3>No hay resultado en refranes con: "{{ mibusqueda_dicho }}"</h3>
+         </div>
+      {% endif %}
+   {% endif %}
+   {% if resultado_explicacion and mibusqueda_explicacion != 'None' %}
+   <section>
+      <article>
+      <div class="titulo_pag">
+         <h3>Resultado de explicaciones con: "{{ mibusqueda_explicacion }}"</h3>
+      </div>
+      <table border="0" width="100%">
+         {% for explicacion in resultado_explicacion %}
+         <tr>
+         <td align="center">
+            <a class="refran" href="{{ explicacion.get_absolute_url }}">"{{ explicacion.dicho }}"</a>
+         </td></tr><tr>
+         <td width="75%" align="center">
+            {% with cadena=mibusqueda_explicacion %}
+            {{ explicacion.explicacion|resalta:cadena }}
+            {% endwith %}
+         </td></tr>
+         {% endfor %}
+         <tr><td colspan="2">-._.-._.-</td></tr>
+      </table>
+      </article>
+   </section>
+   {% else %}
+      {% if mibusqueda_explicacion != 'None' and not resultado_palabra and not resultado_significado and not resultado_dicho %}
+         <div align="center">
+            <h3>No hay resultado en explicaciones con: "{{ mibusqueda_explicacion }}"</h3>
+         </div>
+      {% endif %}
+   {% endif %}
+   <!--div>
+   <br><br><br>
+   </div-->
+   <!--/div>
+</div-->
+{% endblock %}

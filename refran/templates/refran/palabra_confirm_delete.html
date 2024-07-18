@@ -1,0 +1,31 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+<div class="col-sm-12">
+   <div class="titulo_pag">
+<h3>Borrar palabra:</h3>
+   </div>
+   <div id="contenido">
+   <section>
+      <article>
+<h1>{{ palabra.palabra }}</h1>
+{% if palabra.refran_set.all %}
+   <p>No puede borrar la palabra mientras no borre sus refranes. </p>
+  <ul>
+      {% for refran in palabra.refran_set.all %}
+         <li><a class="refran" href="{% url 'refran-detalle' refran.pk %}">"{{ refran.dicho }}"</a></li>
+      {% endfor %}
+   </ul>
+{% else %}
+   <p>¿Está seguro de querer borrar esta palabra?</p>
+   <form action="" method="post">
+      {% csrf_token %}
+      <input type="submit" action="" value="si, borra">
+   </form>
+{% endif %}
+      </article>
+   </section>
+   </div>
+</div>
+{% endblock %}
+

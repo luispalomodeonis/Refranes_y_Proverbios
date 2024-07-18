@@ -1,0 +1,40 @@
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+      <div class="col-sm-12">
+         <div class="titulo_pag">
+            Formulario de contacto
+         </div>
+         <h3><center>Escríbenos</center></h3>
+         <div id="contenido">
+<!--
+            <section>
+               <article">
+-->
+            <div align="center">
+               <table border="0" width="100%">
+                  <tr>
+                     <td align="center">
+                        <form method="POST" class="refran-form">
+                           {% csrf_token %}
+                           {{ form.as_p }}
+                           <button type="submit" class="save btn btn-default">Enviar</button>
+                        </form>
+                     </td>
+                  </tr>
+               </table>
+<!--
+               </article>
+            </section>
+-->
+            </div>
+            <section>
+               <article id="pie">
+                  <strong>4&ByM3R</strong>
+               </article>
+            </section>
+         </div>
+      </div>
+{% endblock %}
+

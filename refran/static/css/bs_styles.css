@@ -1,0 +1,93 @@
+
+body {
+   padding-left: 15px;
+   }
+
+h1 a {
+   color: #FCA205;
+   font-family: 'Lobster';
+   }
+h2 a {
+   color: #FCF000;
+   font-family: 'Lobster';
+   }
+/*
+h3 a {
+   color: #FC0000;
+   font-family: 'Lobster';
+   }
+*/
+
+.page-header {
+   background-color: #ff9400;
+   margin-top: 0;
+/* º; //#   padding: 20px 20px 20px 20px; */
+   padding: 5px 0px 0px 0px;
+   }
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, page-header h1 a:active {
+   color:#ffffff;
+   font-size: 36pt;
+   text-decoration: none;
+   }
+
+.page-header h2, .page-header h2 a, .page-header h2 a:visited, page-header h2 a:active {
+   color:#ffffff;
+   font-size: 36pt;
+   text-decoration: none;
+   }
+
+.content {
+   margin-left: 40px;
+   }
+
+h1, h2 {
+   font-family: 'Lobster', cursive;
+   }
+
+.refran {
+   margin-top: 10px;
+   margin-botton: 15px;
+   font-family: 'Lobster';
+   font-size: 16pt;
+   }
+
+.palabra {
+   margin-top: 5px;
+   margin-botton: 5px;
+   font-family: 'Lobster';
+   font-size: 15pt;
+   }
+.origen {
+   margin-top: 10px;
+   margin-botton: 15px;
+   font-size: 16pt;
+   }
+.letra {
+   margin-top: 10px;
+   margin-botton: 15px;
+   font-family: 'Lobster';
+   font-size: 16pt;
+   }
+.filtro_palabras{
+   height:23em;
+   line-height: 1em;
+   overflow-x: hidden;
+   overflow-y: scroll;
+   width:100%;
+/*
+   border:1px solid;
+*/
+   border:0px;
+   }
+
+.filtro_letras{
+   #height:10em;
+   line-height: 2em;
+   overflow-x: hidden;
+   overflow-y: hidden;
+#   overflow-y: scroll;
+   width:100%;
+   border:0px;
+   }
+

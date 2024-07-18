@@ -1,0 +1,32 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+<div class="col-sm-10">
+   <div class="titulo_pag">
+   <h2>Palabras creadas por <strong>{{ user.get_username.upper }}</strong></h2>
+   </div>
+   <div id="contenido">
+   <section>
+      <article>
+   {% if palabra_list %}
+   <table border="0" width="100%">
+      {% for palabra in palabra_list %}
+   <tr>
+         <td style="padding: 0 10px 0 0" width="20%" align="right" class="{% if palabra.no_aprobada %}text-danger{% endif %}">
+            <a class="palabra" href="{% url 'palabra-detalle' palabra.pk %}">{{ palabra.palabra }}</a></td>
+            <td width="50%" align="left" style="padding: 5px;">{{ palabra.significado }}</td>
+     <td width="15%"> (<strong>{{ palabra.refran_set.count }}</strong> {% if palabra.refran_set.count == 1 %} refrán{% else %} refranes{% endif %})
+     </td>
+            <td width="15%" align="left" style="padding: 5px 0 0 0;"  class="{% if palabra.no_aprobada %}text-danger{% endif %}">{{ palabra.get_estado_display }}</td>
+         </tr>
+      {% endfor %}
+      <tr><td align="center" colspan="3">-._.-._.-</td></tr>
+   </table>
+   {% else %}
+      <p>No tienes palabras creadas</p>
+   {% endif %}
+   </article>
+   </section>
+{% endblock %}
+
+

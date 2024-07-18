@@ -1,0 +1,69 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+
+{% load misfiltros %}
+
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h2>Refrán buscado</h2>
+   </div>
+   <div id="contenido">
+   {% if object_list and mibusqueda_número != 'None' %}
+   <section>
+      <article>
+      <div class="titulo_pag">
+         <h3>Resultado del refrán: {{ mibusqueda_numero }}</h3>
+      </div>
+      <table border="0" width="100%">
+         <tr>
+         <td align="center">
+            <a class="refran" href="{{ object_list.get_absolute_url }}">"{{ object_list.dicho }}"</a>
+         </td></tr>
+         <tr>
+         <td align="center">
+            Explicación:
+            <strong>
+            <span class="explicacion">{{ object_list.explicacion }}</span>
+            </strong>
+         </td></tr>
+         <tr>
+         <td align="center">
+            Letra: <a class="letra" href="{{ object_list.letra.get_absolute_url }}">{{ object_list.letra }}</a>
+         </td></tr>
+         <tr>
+         <td align="center">
+            Palabra: <a class="palabra" href="{{ object_list.palabra.get_absolute_url }}">{{ object_list.palabra }}</a>
+         </td></tr>
+         <tr>
+         <td align="center">
+            Origen: <a class="origen" href="{{ object_list.origen.get_absolute_url }}">{{ object_list.origen }}</a>
+         </td></tr>
+         <tr>
+         <td align="center">
+            Creado: {{ object_list.fecha }}
+         </td></tr>
+         <tr>
+         <td align="center">
+            Aprobado: {{ object_list.fechaaprobacion }}
+         </td></tr>
+         <tr>
+         <td align="center">
+            Publicado: {{ object_list.fechapublicacion }}
+         </td></tr>
+         <tr><td>-._.-._.-</td></tr>
+      </table>
+      </article>
+   </section>
+   {% else %}
+      {% if mibusqueda_numero != 'None' %}
+         <div align="center">
+            <h3>No hay resultado en refranes con número: "{{ mibusqueda_numero }}"</h3>
+         </div>
+      {% endif %}
+   {% endif %}
+   <br><br><br>
+   </div-->
+   <!--/div>
+</div-->
+{% endblock %}

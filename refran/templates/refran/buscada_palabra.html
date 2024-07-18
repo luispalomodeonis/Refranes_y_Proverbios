@@ -1,0 +1,43 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+
+{% load misfiltros %}
+
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h2>Lista de resultados</h2>
+   </div>
+   <div id="contenido">
+   {% if object_list and mibusqueda_palabra != 'None' %}
+   <section>
+      <article>
+      <div class="titulo_pag">
+         <h3>Resultado de palabras con: "{{ mibusqueda_palabra }}"</h3>
+      </div>
+      <table border="0" width="100%">
+         {% for palabra in object_list %}
+         <tr>
+         <td align="center">
+            {% with cadena=mibusqueda_palabra %}
+            <a class="palabra" href="{{ palabra.get_absolute_url }}">{{ palabra.palabra|resalta:cadena }}</a>
+            {% endwith %}
+         </td></tr>
+         {% endfor %}
+         <tr><td>-._.-._.-</td></tr>
+      </table>
+      </article>
+   </section>
+   {% else %}
+      {% if mibusqueda_palabra != 'None' %}
+         <div align="center">
+            <h3>No hay resultado en palabras con: "{{ mibusqueda_palabra }}"</h3>
+         </div>
+      {% endif %}
+   {% endif %}
+   <!--div>
+   <br><br><br>
+   </div-->
+   <!--/div>
+</div-->
+{% endblock %}

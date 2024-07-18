@@ -1,0 +1,76 @@
+
+{% extends "base_generic.html" %}
+{% load misfiltros %}
+{% block content %}
+      <div class="col-sm-12">
+         <div class="titulo_pag">
+            Bienvenido a Refranes y Proverbios
+         </div>
+         <div id="contenido">
+            <section>
+               <article id="revision">
+                  <h5><strong>En revisión</strong></h5>
+                  Orígenes: {{ num_origenes_revision }}
+                  <br>Palabras: {{ num_palabras_revision}}
+                  <br>Refranes: {{ num_refranes_revision }}
+               </article>
+               <article id="aprobados">
+                  <h5><strong>Aprobados</strong></h5>
+                  Orígenes: {{ num_origenes_aprobados }}
+                  <br>Palabras: {{ num_palabras_aprobadas }}
+                  <br>Refranes: {{ num_refranes_aprobados }}
+               </article>
+               <article id="publicados">
+                  <h5><strong>Publicados</strong></h5>
+                  Letras: {{ num_letras }}
+                  <br>Palabras: {{ num_palabras_aprobadas }}
+                  <br>Refranes: {{ num_refranes_publicados }}
+               </article>
+               <article id="creados">
+                  <h5><strong>Creados</strong></h5>
+                  Letras: {{ num_letras }}
+                  <br>Orígenes: {{ num_origenes }}
+                  <br>Palabras: {{ num_palabras }}
+                  <br>Refranes: {{ num_refranes }}
+               </article>
+               <br>&nbsp;
+               <article id="aldia">
+               <table border="0" width="100%">
+               <tr><td colspan="3">
+                 <h4><strong>Refrán del día</strong></h4>
+                 <div class="refran">
+                    "<strong><a href="refranes/{{refran_deldia.id }}">{{ refran_deldia.dicho|resalta:refran_deldia.palabra.palabra }}</a></strong>"
+                  </div>
+               </td></tr>
+               </table>
+               </article>
+               <article id="alzas">
+               <table border="0" width="100%">
+               <tr><td width="20%">
+                  <div title="Los que dan consejos ciertos a los vivos son los muertos">
+                  <img width="100%" alt="Los que dan consejos ciertos a los vivos son los muertos" src="/static/images/consejos.jpg"/>
+                  </div>
+                  </td>
+                  <td width="60%">
+                  <h5>Refrán <strong><a href="refranes/{{refran_aleatorio}}">{{ refran_numero|activa_primo }}</a></strong> al ZaS:</h5>
+                  {% with cadena=refran_palabra|concatena:" "|concatena:refran_palabra_id %}
+                  <h3><div class="refran"><strong>"{{ refran_dicho|resaltayenlaza:cadena|safe }}</strong>"</div></h3>
+                  {% endwith %}
+                  <h4><div>{{ refran_explicacion }}</div></h4>
+                  </td>
+               <td width="20%">
+               <div title="Tururú, tururú, nos dicen desde el Cielo">
+                  <img width="100%" alt="Tururú, tururú, nos dicen desde el Cielo" src="/static/images/tururu.jpg"/>
+               </div></td></tr>
+               </table>
+               </article>
+            </section>
+            <section>
+               <article id="pie">
+                  <strong>4&ByM3R</strong>
+               </article>
+            </section>
+         </div>
+      </div>
+{% endblock %}
+

@@ -1,0 +1,40 @@
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h2 class="refran">"{{ refran.dicho }}"</h2>
+   </div>
+   <div align="center">
+      <h4>{{ refran.explicacion }}</h4>
+   </div>
+   <div id="contenido">
+      <section>
+         <article>
+       Palabra: <a class="palabra" href="{% url 'palabra-detalle' refran.palabra.pk %}"> {{ refran.palabra }}</a>
+      <br>
+       Origen: <a class="origen" href="{% url 'origen-detalle' refran.origen.pk %}"> {{ refran.origen }}</a>
+         </article>
+      </section>
+   </div>
+</div>
+{% endblock %}
+
+{% block edita %}
+   {% if perms.refranes.change_refran or perms.refranes.delete_refran %}
+      <div class="dropdown">
+      <button class="dropbtn">Edición</button>
+      <div class="dropdown-content">
+         {% if perms.refranes.change_refran %}
+            <a href="{% url 'refran-actualiza' refran.id %}">Cambiar</a>
+         {% endif %}
+         {% if perms.refranes.delete_refran %}
+            <a href="{% url 'refran-borra' refran.id %}">Borrar</a>
+         {% endif %}
+      </div>
+      </div>
+   {% endif %}
+{% endblock %}
+

@@ -1,0 +1,4 @@
+  apt-get install python3 python3-pip tree
+  pip3 install mysqlclient
+  pip install django-bootstrap-form
+  pip install django-social-share

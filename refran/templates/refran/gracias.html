@@ -1,0 +1,36 @@
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="col-sm-12">
+   <div class="titulo_pag">
+   Gracias Compañero
+   <!--
+   Gracias: {{ remitente }}
+   -->
+   </div>
+   <div id="contenido">
+      <section>
+         <article">
+<div align="center">
+<table border="0" width="100%">
+<tr>
+<td align="center">
+   <h3><center>Recibirás nuestra contestación tan pronto podamos atender tu mensaje</h3>
+   <form action="{% url 'index' %}" method="POST">
+   {% csrf_token %}
+   <button type="submit" class="save btn btn-default">Inicio</button>
+   </form>
+</td>
+</tr>
+</table>
+         </article>
+      </section>
+      <section>
+         <article id="pie">
+            <strong>4&ByM3R</strong>
+      </section>
+   </div>
+</div>
+{% endblock %}
+

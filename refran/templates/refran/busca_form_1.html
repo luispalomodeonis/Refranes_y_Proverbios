@@ -1,0 +1,54 @@
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="col-sm-12" align="center">
+   <div class="titulo_pag">
+      <h2>Formulario de búsquedas</h2>
+   </div>
+   <div id="contenido">
+   <section>
+      <article>
+<div align="center">
+<table border="0" width="100%">
+<tr><td align="right">
+<form action="{% url 'busca-palabra' %}" method="POST">
+   {% csrf_token %}
+   <input type="text" name="mibusqueda_palabra" required>
+   </td><td align="left">
+   <input type="submit" value="Buscar en Palabras">
+</form>
+</td></tr>
+<tr><td align="right">
+<form action="{% url 'busca-significado' %}" method="POST">
+   {% csrf_token %}
+   <input type="text" name="mibusqueda_significado" required>
+   </td><td align="left">
+   <input type="submit" value="Buscar en Significados">
+</form>
+</td></tr>
+<tr><td align="right">
+<form action="{% url 'busca-dicho' %}" method="POST">
+   {% csrf_token %}
+   <input type="text" name="mibusqueda_dicho" required>
+   </td><td align="left">
+   <input type="submit" value="Buscar en Refranes">
+</form>
+</td></tr>
+<tr><td align="right">
+<form action="{% url 'busca-explicacion' %}" method="POST">
+   {% csrf_token %}
+   <input type="text" name="mibusqueda_explicacion" required>
+   </td><td align="left">
+   <input type="submit" value="Buscar en Explicaciones">
+</form>
+</td></tr>
+</table>
+</div>
+      </article>
+   </section>
+   </div>
+</div>
+
+{% endblock %}
+

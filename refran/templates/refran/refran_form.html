@@ -1,0 +1,28 @@
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h2>Nuevo refrán</h2>
+   </div>
+   <div id="contenido">
+   <section>
+      <article>
+<div align="center">
+<form action="" method="post">
+   {% csrf_token %}
+   <table border="1">
+      {{ form.as_table }}
+   </table>
+   <input type="submit" value="Submit" />
+</form>
+</div>
+      </article>
+   </section>
+   </div>
+</div>
+
+{% endblock %}
+
+

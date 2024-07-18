@@ -1,0 +1,46 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+
+{% load misfiltros %}
+
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h2>Lista de resultados</h2>
+   </div>
+   <div id="contenido">
+   {% if object_list and mibusqueda_significado != 'None' %}
+   <section>
+      <article>
+      <div class="titulo_pag">
+         <h3>Resultado de significados con: "{{ mibusqueda_significado }}"</h3>
+      </div>
+      <table border="0" width="100%">
+         {% for significado in object_list %}
+         <tr>
+         <td align="left">
+            <a class="palabra" href="{{ significado.get_absolute_url }}">{{ significado.palabra }}</a>
+         </td>
+         <td align="center" width="80%">
+            {% with cadena=mibusqueda_significado %}
+            {{ significado.significado|resalta:cadena }}
+            {% endwith %}
+         </td></tr>
+         {% endfor %}
+         <tr><td colspan="2">-._.-._.-</td></tr>
+      </table>
+      </article>
+   </section>
+   {% else %}
+      {% if mibusqueda_significado != 'None' %}
+         <div align="center">
+            <h3>No hay resultado en significados con: "{{ mibusqueda_significado }}"</h3>
+         </div>
+      {% endif %}
+   {% endif %}
+   <!--div>
+   <br><br><br>
+   </div-->
+   <!--/div>
+</div-->
+{% endblock %}

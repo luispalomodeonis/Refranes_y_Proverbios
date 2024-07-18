@@ -1,0 +1,23 @@
+
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+   <div align="center">
+   <h2>Lista de refranes en Revisión</h2>
+   </div>
+   {% if refran_list %}
+   <ul>
+     {% for refran in refran_list %}
+     <li>
+        <a class="refran" href="{{ refran.get_absolute_url }}">"{{ refran.dicho }}"</a>
+     </li>
+     {% endfor %}
+
+   </ul>
+   {% else %}
+     <p>No hay refranes en en revisión.</p>
+   {% endif %}
+{% endblock %}
+
+

@@ -1,0 +1,94 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+<div class="col-sm-10">
+   <div class="titulo_pag">
+   <h2>Lista de todos los refranes</h2>
+   </div>
+   <div id="contenido">
+   <section>
+      <article>
+   {% if refran_list %}
+     <table border="0" width="100%">
+     <tr>
+     {% for refran in refran_list %}
+     <td>
+        <a class="refran" href="{{ refran.get_absolute_url }}">"{{ refran.dicho }}"</a>
+        <br><strong>{{ refran.explicacion }}</strong>
+     </td>
+     <td>
+        (<strong>{{ refran.creador }}</strong>)
+     </td>
+     <td>
+        (<span class="{% if refran.no_publicado %}text-danger{% endif %}">{{ refran.get_estado_display }}</span>)
+     </td>
+     </tr>
+     {% endfor %}
+      <tr><td colspan="3">-._.-._.-</td></tr>
+     </table>
+   {% else %}
+     <p>No hay refranes en el archivo.</p>
+   {% endif %}
+      </article>
+   </section>
+{% endblock %}
+
+{% block filtros %}
+<div class="col-sm-2">
+   {% if letras %}
+   <div class="filtro_letras">
+   <strong>Letras</strong>
+   <div id="tbl_letras">
+   <table border="0" width="100%">
+   <tr>
+   {% for letra in letras %}
+      {% if letra.palabra_set.all.count != 0 %}
+      <td align="center">
+      <a class="letra_fltr" href="{% url 'todos-refranes-letra' letra.id %}">{{ letra }}</a>
+      </td>
+      {% if forloop.counter|divisibleby:"7" %}
+         </tr>
+         <tr>
+      {% endif %}
+      {% endif %}
+   {% endfor %}
+   </tr>
+   </table>
+   </div>
+   </div>
+   {% else %}
+      <p>No hay filtros de letras</p>
+   {% endif %}
+   <br>
+   {% if palabras %}
+   <div class="filtro_palabras">
+   <strong>Palabras</strong>
+   <div id="tbl_palabras">
+   <table border="0" width="100%">
+   <tr>
+   {% for palabra in palabras %}
+      {% if palabra.refran_set.all.count != 0 %}
+      <td align="left">
+      <a class="palabra_fltr" href="{% url 'todos-refranes-palabra' palabra.id %}">{{ palabra }}</a>
+      </td>
+      {% if forloop.counter|divisibleby:"2" %}
+         </tr>
+         <tr>
+      {% endif %}
+      {% endif %}
+   {% endfor %}
+   </tr>
+   </table>
+   </div>
+   </div>
+   {% else %}
+      <p>No hay filtro de palabras</p>
+   {% endif %}
+</div>
+{% endblock %}
+
+{% block content_end %}
+         </div>
+      </div>
+{% endblock %}
+

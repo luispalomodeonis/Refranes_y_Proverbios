@@ -1,0 +1,46 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+
+{% load misfiltros %}
+
+<div class="col-sm-12">
+   <div class="titulo_pag">
+      <h2>Lista de resultados</h2>
+   </div>
+   <div id="contenido">
+   {% if object_list and mibusqueda_explicacion != 'None' %}
+   <section>
+      <article>
+      <div class="titulo_pag">
+         <h3>Resultado de explicaciones con: "{{ mibusqueda_explicacion }}"</h3>
+      </div>
+      <table border="0" width="100%">
+         {% for explicacion in object_list %}
+         <tr>
+         <td align="center">
+            <a class="refran" href="{{ explicacion.get_absolute_url }}">"{{ explicacion.dicho }}"</a>
+         </td></tr><tr>
+         <td width="75%" align="center">
+            {% with cadena=mibusqueda_explicacion %}
+            {{ explicacion.explicacion|resalta:cadena }}
+            {% endwith %}
+         </td></tr>
+         {% endfor %}
+         <tr><td colspan="2">-._.-._.-</td></tr>
+      </table>
+      </article>
+   </section>
+   {% else %}
+      {% if mibusqueda_explicacion != 'None' %}
+         <div align="center">
+            <h3>No hay resultado en explicaciones con: "{{ mibusqueda_explicacion }}"</h3>
+         </div>
+      {% endif %}
+   {% endif %}
+   <!--div>
+   <br><br><br>
+   </div-->
+   <!--/div>
+</div-->
+{% endblock %}

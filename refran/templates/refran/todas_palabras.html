@@ -1,0 +1,74 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+
+      <div class="col-sm-10">
+         <div class="titulo_pag">
+            <h2>Lista de todas las palabras</h2>
+         </div>
+         <div id="contenido">
+            <section>
+               <article>
+                  {% if palabra_list %}
+                     <table border="0" width="100%">
+                        <tr>
+                           {% for palabra in palabra_list %}
+                              <td>
+                                 <a class="palabra" href="{{ palabra.get_absolute_url }}">{{ palabra.palabra }}</a>
+                              </td>
+                              <td>
+                                 (<strong>{{ palabra.refran_set.count }}</strong> {% if palabra.refran_set.count == 1 %} refrán{% else %} refranes{% endif %})
+                              </td>
+                              <td>
+                                 (<span class="{% if palabra.en_revision %}text-danger{% endif %}">{{ palabra.get_estado_display }}</span>)
+                              </td>
+                              <td>
+                                 (<strong>{{ palabra.creador }}</strong>)
+                              </td>
+                              {% if forloop.counter|divisibleby:"2" %}
+                        </tr><tr>
+                              {% endif %}
+                           {% endfor %}
+                        </tr>
+                        <tr><td colspan="8">-._.-._.-</td></tr>
+                     </table>
+                  {% else %}
+                    <p>No hay palabras en el archivo.</p>
+                  {% endif %}
+               </article>
+            </section>
+{% endblock %}
+
+{% block filtros %}
+      <div class="col-sm-2">
+         {% if letras %}
+            <div class="filtro_letras">
+               <strong>Letras</strong>
+               <div id="tbl_letras">
+                  <table border="0" width="100%">
+                     <tr>
+                        {% for letra in letras %}
+                           {% if letra.palabra_set.all.count != 0 %}
+                              <td align="center">
+                                 <a class="letra" href="{% url 'todas-palabras-letra' letra.id %}">{{ letra }}</a>
+                              </td>
+                              {% if forloop.counter|divisibleby:"7" %}
+                     </tr><tr>
+                              {% endif %}
+                           {% endif %}
+                        {% endfor %}
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         {% else %}
+            <p>No hay filtros de letras</p>
+         {% endif %}
+      </div>
+{% endblock %}
+
+{% block content_end %}
+         </div>
+      </div>
+{% endblock %}
+
